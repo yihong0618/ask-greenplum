@@ -7,7 +7,6 @@ Greenplum Q&A is a project that demonstrates how to use word embeddings and Post
 
 To get started with this project, you'll need to have:
 
-- A Neon account, and project.
 - an API key for the OpenAI GPT-3.5 API, which you can obtain from https://openai.com/.
 
 Once you have the prerequisites installed, follow these steps to get the project up and running:
