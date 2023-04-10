@@ -1,7 +1,7 @@
 # Ask Greenplum Q&A
 
 
-Greenplum Q&A is a project that demonstrates how to use word embeddings and Postgres to build a chatbot. The chatbot is implemented using Vercel Edge Functions and the @neondatabase/serverless driver, and relies on OpenAI's GPT-3.5 API to generate responses.
+Greenplum Q&A is a project that demonstrates how to use word embeddings and Postgres to build a chatbot. The chatbot is implemented using pgvector and relies on OpenAI's GPT-3.5 API to generate responses.
 
 ## Getting started
 
