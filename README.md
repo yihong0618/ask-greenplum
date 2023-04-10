@@ -21,6 +21,11 @@ cd ask-greenplum
 
 ## Prepare the data
 
+
+```console
+docker run --name some-greenplum1 -e POSTGRES_PASSWORD=postgres -p 5432:5432  -d ankane/pgvector
+```
+
 ```bash
 cd data
 python -m venv env
@@ -41,10 +46,6 @@ export DATABASE_URL=<YOUR_NEON_CONEECTION_STRING>
 OPENAI_API_KEY=<YOUR_OPENAI_API_KEY>
 ```
 
-pgvector 
-```
-docker run --name some-greenplum1 -e POSTGRES_PASSWORD=postgres -p 5432:5432  -d ankane/pgvector
-```
 
 
 Run `main.py` to import the emebbeding to your Neon database:
