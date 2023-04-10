@@ -1,5 +1,6 @@
 # Ask Greenplum Q&A
 
+https://user-images.githubusercontent.com/15976103/230866217-a20085a1-83e1-49f4-8827-9eeb11a06c7d.mov
 
 Greenplum Q&A is a project that demonstrates how to use word embeddings and Postgres to build a chatbot. The chatbot is implemented using pgvector and relies on OpenAI's GPT-3.5 API to generate responses.
 
@@ -36,7 +37,8 @@ psql <database-url> -f database.sql
 Let’s now add `DATABASE_URL` and `OPENAI_API_KEY` to our environment variables:
 
 ```bash
-export DATABASE_URL=<YOUR_NEON_CONEECTION_STRING> OPENAI_API_KEY=<YOUR_OPENAI_API_KEY>
+export DATABASE_URL=<YOUR_NEON_CONEECTION_STRING> 
+OPENAI_API_KEY=<YOUR_OPENAI_API_KEY>
 ```
 
 pgvector 
@@ -70,6 +72,14 @@ Set the following environment variables:
 OPENAI_API_KEY= Your OpenAI API key.
 DATABASE_URL= The connection URL for your docker postgres database.
 ```
+
+## Ask
+
+```console
+pip install git+https://github.com/yihong0618/GPTerminator.git
+```
+
+gpterm
 
 
 ## Contributing
