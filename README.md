@@ -79,8 +79,11 @@ DATABASE_URL= The connection URL for your docker postgres database.
 pip install git+https://github.com/yihong0618/GPTerminator.git
 ```
 
-gpterm
+## then
 
+```console
+gpterm # go ask
+```
 
 ## Contributing
 
