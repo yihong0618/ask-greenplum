@@ -15,7 +15,7 @@ Once you have the prerequisites installed, follow these steps to get the project
 Clone the repository:
 
 ```bash
-git clone https://github.com/yihong0618/ask-greenplum/.git
+git clone https://github.com/yihong0618/ask-greenplum.git
 cd ask-greenplum
 ```
 
