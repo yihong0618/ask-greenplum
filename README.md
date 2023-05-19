@@ -15,7 +15,7 @@ Once you have the prerequisites installed, follow these steps to get the project
 Clone the repository:
 
 ```bash
-git clone https://github.com/yihong0618/ask-greenplum/.git
+git clone https://github.com/yihong0618/ask-greenplum.git
 cd ask-greenplum
 ```
 
@@ -42,19 +42,19 @@ psql <database-url> -f database.sql
 Let’s now add `DATABASE_URL` and `OPENAI_API_KEY` to our environment variables:
 
 ```bash
-export DATABASE_URL=<YOUR_NEON_CONEECTION_STRING> 
+export DATABASE_URL=<YOUR_PG_CONEECTION_STRING> 
 OPENAI_API_KEY=<YOUR_OPENAI_API_KEY>
 ```
 
 
 
-Run `main.py` to import the emebbeding to your Neon database:
+Run `main.py` to import the emebbeding to your pg database:
 
 ```bash
 python main.py
 ```
 
-Relax and grab a cup of coffee as this section might take 10min to process!
+Relax and grab a cup of coffee as this section might take 60mins to process!
 
 Expcted result:
 
