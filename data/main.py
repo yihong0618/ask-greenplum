@@ -19,7 +19,7 @@ from openai.embeddings_utils import distances_from_embeddings, cosine_similarity
 import psycopg2
 import csv
 
-domain = "postgresql.org"
+domain = "www.postgresql.org"
 
 def remove_newlines(serie):
     serie = serie.str.replace('\n', ' ')
@@ -37,21 +37,23 @@ def remove_newlines(serie):
 texts=[]
 
 # Get all the text files in the text directory
-for file in os.listdir("text/" + domain + "/"):
+# for file in os.listdir("text/" + domain + "/"):
+for file in os.listdir("mds/"):
 
     # Open the file and read the text
-    with open("text/" + domain + "/" + file, "r", encoding="UTF-8") as f:
+    with open("mds/" +  file, "r", encoding="UTF-8") as f:
         text = f.read()
 
         # Omit the first 11 lines and the last 4 lines, then replace -, _, and #update with spaces.
-        texts.append((file[11:-4].replace('-',' ').replace('_', ' ').replace('#update',''), text))
+        texts.append((file.replace('-',' ').replace('_', ' ').replace('#update',''), text))
+
 
 # Create a dataframe from the list of texts
 df = pd.DataFrame(texts, columns = ['fname', 'text'])
 
 # Set the text column to be the raw text with the newlines removed
 df['text'] = df.fname + ". " + remove_newlines(df.text)
-df.to_csv('processed/scraped.csv')
+df.to_csv('processed/scraped_greenplum.csv')
 df.head()
 
 ################################################################################
@@ -61,7 +63,7 @@ df.head()
 # Load the cl100k_base tokenizer which is designed to work with the ada-002 model
 tokenizer = tiktoken.get_encoding("cl100k_base")
 
-df = pd.read_csv('processed/scraped.csv', index_col=0)
+df = pd.read_csv('processed/scraped_greenplum.csv', index_col=0)
 df.columns = ['title', 'text']
 
 # Tokenize the text and save the number of tokens to a new column
@@ -137,15 +139,31 @@ df = pd.DataFrame(shortened, columns = ['text'])
 df['n_tokens'] = df.text.apply(lambda x: len(tokenizer.encode(x)))
 df.n_tokens.hist()
 
-################################################################################
-### Step 10
-################################################################################
+###############################################################################
+## Step 10
+###############################################################################
 
 # Note that you may run into rate limit issues depending on how many files you try to embed
 # Please check out our rate limit guide to learn more on how to handle this: https://platform.openai.com/docs/guides/rate-limits
 
-df['embeddings'] = df.text.apply(lambda x: openai.Embedding.create(input=x, engine='text-embedding-ada-002')['data'][0]['embedding'])
-df.to_csv('processed/embeddings.csv')
+def x(x):
+    try:
+        print(x)
+        time.sleep(1)
+        return openai.Embedding.create(input=x, engine='text-embedding-ada-002')['data'][0]['embedding']
+    except Exception as e:
+        print(str(e))
+        time.sleep(10)
+        return openai.Embedding.create(input=x, engine='text-embedding-ada-002')['data'][0]['embedding']
+
+
+import time
+try:
+    df['embeddings'] = df.text.apply(x)
+except:
+    print(222)
+    
+df.to_csv('processed/embeddings_greenplum.csv')
 df.head()
 
 ################################################################################
@@ -158,7 +176,7 @@ conn = psycopg2.connect(conn_string)
 cursor = conn.cursor()
 
 # Open the CSV file and loop over the rows
-with open('processed/embeddings.csv', 'r') as file:
+with open('processed/embeddings_greenplum.csv', 'r') as file:
     reader = csv.reader(file)
     next(reader)  # skip the header row
     for row in reader:
